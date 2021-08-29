@@ -6,7 +6,7 @@ from snippets.serializers import SnippetSerializer
 
 
 @api_view(['GET', 'POST'])
-def snippet_list(request):
+def snippet_list(request, format=None):
     """
     List all code snippets, or create a new snippet.
     """
@@ -24,7 +24,7 @@ def snippet_list(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def snippet_detail(request, pk):
+def snippet_detail(request, pk, format=None):
     """
     Retrieve, update or delete code snippet.
     """
@@ -42,7 +42,7 @@ def snippet_detail(request, pk):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.erros, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         snippet.delete()
